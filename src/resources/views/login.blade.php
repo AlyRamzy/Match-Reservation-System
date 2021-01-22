@@ -16,16 +16,36 @@
       margin-right:auto;
       width:100%;
   }
-  .background{
-      background-color:#D0CACA;
+  .background_color{
+    border-radius: 50px 0px;
+    background: transparent;
+    font-weight:bold;
+
+
+    color:white;
+  
+    border-bottom: 12px;
+
+    box-shadow: 6px 10px 16px 11px;
+    box-shadow: 10px;
+    
+
    
+    padding:10px;
+  
+   
+  }
+  .background{
+    background-image:url('{{asset('img/grass.jpeg')}}')
   }
 
   .resz {
       width:1080px;
   }
   .error {color: #FF0000;}
-  
+  body {
+  font-size: 23px;
+}
 
   </style>
 </head>
@@ -81,7 +101,7 @@
   </div>
   <!-- The log Window   -->
   <div class="row">
-  <div class="col-lg-6" style="text-align:center;"><h1>Already a Member?</h1>
+  <div class="col-lg-6 background_color" style="text-align:center ;margin-top:6px; "><h1>Already a Member?</h1>
 
 <h2>Log in</h2>
 <form method="post" action="/log_in">
@@ -93,13 +113,13 @@
   <span class="error"></span>
   <br><br>
 
-  <input type="submit" name="submit" value="Log in" >
+  <input type="submit" name="submit" value="Log in"style="color:black;" >
 
 </form>
 
   </div>
 
-  <div class="col-lg-6" style="margin-top:6px"><h1>New Member?</h1>
+  <div class="col-lg-6 background_color" style="text-align:center;margin-top:6px"><h1>New Member?</h1>
 
 <h2>Sign up</h2>
 <p><span class="error" style="color:red"> * required field</span></p>
@@ -109,7 +129,7 @@
   Username: <input type="text" name="username" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Password: <input type="password" name="passWwrd" style="margin-left:6px" required>
+  Password: <input type="password" name="passWwrd" style="margin-left:6px " required>
   <span class="error" style="color:red"> *</span>
   <br><br>
   First Name: <input type="text" name="first_name" style="margin-left:28px" required>
@@ -143,7 +163,7 @@
   <input type="radio" name="role" style="margin-left:6px" value="Manager">Manager
   <span class="error" style="color:red"></span>
   <br><br>
-  <input type="submit" name="submit" value="Register">
+  <input type="submit" name="submit" value="Register" style="color:black;">
 </form>
   </div>
 </div>
