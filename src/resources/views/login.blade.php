@@ -46,6 +46,9 @@
   body {
   font-size: 23px;
 }
+.textcolor{
+  color:black;"
+}
 
   </style>
 </head>
@@ -101,53 +104,54 @@
   </div>
   <!-- The log Window   -->
   <div class="row">
-  <div class="col-lg-6 background_color" style="text-align:center ;margin-top:6px; "><h1>Already a Member?</h1>
+  <div class="col-lg-5 background_color" style="text-align:center ;margin-top:6px; "><h1>Already a Member?</h1>
 
 <h2>Log in</h2>
 <form method="post" action="/log_in">
   {{ csrf_field() }}
-  Username:<input type="text" name="username">
-  <span class="error"></span>
+  Username:<input type="text" name="username" class="textcolor" required>
+  <span class="error">*</span>
   <br><br>
-  Password:  <input type="password" name="password">
-  <span class="error"></span>
+  Password:  <input type="password" name="password" class="textcolor" required>
+  <span class="error">*</span>
   <br><br>
 
-  <input type="submit" name="submit" value="Log in"style="color:black;" >
+  <input type="submit" name="submit" value="Log in"class="textcolor" >
 
 </form>
 
   </div>
+  <div class="col-lg-1"></div>
 
   <div class="col-lg-6 background_color" style="text-align:center;margin-top:6px"><h1>New Member?</h1>
 
 <h2>Sign up</h2>
-<p><span class="error" style="color:red"> * required field</span></p>
+
 <form method="post" action="/sign_up">
   {{ csrf_field() }}
   
-  Username: <input type="text" name="username" required>
+  Username: <input type="text" name="username" class="textcolor"  required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Password: <input type="password" name="passWwrd" style="margin-left:6px " required>
+  Password: <input type="password" name="passWwrd" style="margin-left:6px "  class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  First Name: <input type="text" name="first_name" style="margin-left:28px" required>
+  First Name: <input type="text" name="first_name" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Last Name: <input type="text" name="last_name" style="margin-left:28px" required>
+  Last Name: <input type="text" name="last_name" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Birthdate <input type="date" name="birthdate" style="margin-left:28px" required>
+  Birthdate <input type="date" name="birthdate" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Address: <input type="text" name="address" style="margin-left:18px">
+  Address: <input type="text" name="address" style="margin-left:18px" class="textcolor">
   <span class="error" style="color:red"></span>
   <br><br>
-  City: <input type="text" name="city" style="margin-left:18px">
+  City: <input type="text" name="city" style="margin-left:18px" class="textcolor">
   <span class="error" style="color:red"></span>
   <br><br>
-  Email Address: <input type="email" name="email" style="margin-left:18px">
+  Email Address: <input type="email" name="email" style="margin-left:18px" class="textcolor">
   <span class="error" style="color:red"></span>
   <br><br>
 

@@ -1,0 +1,13 @@
+To Run on Ubuntu(18.04)
+
+1- Install Laravel
+https://www.hostinger.com/tutorials/how-to-install-laravel-on-ubuntu-18-04-with-apache-and-php/
+
+##Fix Mysqli connection
+sudo apt install php7.2-mysql
+
+
+2- Creata Database
+https://www.atlantic.net/vps-hosting/how-to-manage-databases-in-mariadb-on-ubuntu-18-04/
+
+

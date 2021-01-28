@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
+
+
+
+
+
+//---------------------------------ROUTES FROM FORMS TO CONTROLLERS ------------------------------------------------------------//
+Route::post('/log_in', 'LoginController@ValnLog');
+
+Route::post('/sign_up', 'LoginController@SignUp');
+
+Route::post('/change_password', 'LoginController@ChangePassword');
+
+Route::post('/logout', 'LoginController@LogOut');
