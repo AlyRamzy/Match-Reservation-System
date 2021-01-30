@@ -112,9 +112,31 @@
   Username:<input type="text" name="username" class="textcolor" required>
   <span class="error">*</span>
   <br><br>
+  <?php
+
+    if (!empty($username_login_error)) {
+      echo '<span class="error">',$username_login_error,'</span><br>';
+    }
+
+   
+    ?> 
+  
+  
   Password:  <input type="password" name="password" class="textcolor" required>
   <span class="error">*</span>
   <br><br>
+  <?php
+
+    if (!empty($password_login_error)) {
+      echo '<span class="error">',$password_login_error,'</span><br>';
+    }
+
+    if(empty($approved) && isset($approved)){
+      echo '<span class="error">Account Not Aprroved , Please Wait</span><br>';
+    }
+
+   
+    ?> 
 
   <input type="submit" name="submit" value="Log in"class="textcolor" >
 
@@ -133,15 +155,47 @@
   Username: <input type="text" name="username" class="textcolor"  required>
   <span class="error" style="color:red"> *</span>
   <br><br>
-  Password: <input type="password" name="passWwrd" style="margin-left:6px "  class="textcolor" required>
+  <?php
+
+    if (!empty($username_signup_error)) {
+      echo '<span class="error">',$username_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
+  Password: <input type="password" name="password" style="margin-left:6px "  class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
+  <?php
+
+    if (!empty($password_signup_error)) {
+      echo '<span class="error">',$password_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
   First Name: <input type="text" name="first_name" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
+  <?php
+
+    if (!empty($firstname_signup_error)) {
+      echo '<span class="error">',$firstname_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
   Last Name: <input type="text" name="last_name" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
+   <?php
+
+    if (!empty($lastname_signup_error)) {
+      echo '<span class="error">',$lastname_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
   Birthdate <input type="date" name="birthdate" style="margin-left:28px" class="textcolor" required>
   <span class="error" style="color:red"> *</span>
   <br><br>
@@ -149,24 +203,48 @@
   <span class="error" style="color:red"></span>
   <br><br>
   City: <input type="text" name="city" style="margin-left:18px" class="textcolor">
-  <span class="error" style="color:red"></span>
+  <span class="error" style="color:red">*</span>
   <br><br>
+   <?php
+
+    if (!empty($city_signup_error)) {
+      echo '<span class="error">',$city_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
   Email Address: <input type="email" name="email" style="margin-left:18px" class="textcolor">
-  <span class="error" style="color:red"></span>
+  <span class="error" style="color:red">*</span>
   <br><br>
+   <?php
+
+    if (!empty($email_signup_error)) {
+      echo '<span class="error">',$email_signup_error,'</span><br>';
+    }
+
+   
+    ?> 
 
 
   Gender:
   <input type="radio" name="gender" style="margin-left:25px" value="female">Female
   <input type="radio" name="gender" style="margin-left:6px" value="male">Male
-  <span class="error" style="color:red"></span>
+  <span class="error" style="color:red">*</span>
   <br><br>
 
   Role:
   <input type="radio" name="role" style="margin-left:25px" value="Fan">Fan
   <input type="radio" name="role" style="margin-left:6px" value="Manager">Manager
-  <span class="error" style="color:red"></span>
+  <span class="error" style="color:red">*</span>
   <br><br>
+   <?php
+
+    if (!empty($wait)) {
+      echo '<span class="error">',$wait,'</span><br>';
+    }
+
+   
+    ?> 
   <input type="submit" name="submit" value="Register" style="color:black;">
 </form>
   </div>
