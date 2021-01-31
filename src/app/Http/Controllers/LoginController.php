@@ -46,18 +46,20 @@ class LoginController extends Controller
                     //Check User Type 
                     if($row['role']=="Admin"){
                         //Route To Admin Page
-                        echo "Admin";
-                        return;
+                        return View('/admin');
+                        
                     }
                     if($row['approved']==1){
                         //Approved Fan or Manger
                         if($row['role']=="Fan"){
                             //Route To Fan Page
                             echo "Fan";
+                            return;
                         }
                         else{
                             //Route To Manager Page
                             echo "Manager";
+                            return;
                         }
 
                     }
@@ -159,7 +161,7 @@ class LoginController extends Controller
 
         #Insert inside Database
         $password = Hash::make($password);
-        $sql = 'insert into User (user_name,password,first_nane,last_name,Bdate,gender,city,email,role,address,approved) values("'.$username.'","'.$password.'","'.$first_name.'","'.$last_name.'","'.$birthdate.'","'.$gender.'","'.$city.'","'.$email.'","'.$role.'","'.$address.'",0)';
+        $sql = 'insert into User (user_name,password,first_name,last_name,Bdate,gender,city,email,role,address,approved) values("'.$username.'","'.$password.'","'.$first_name.'","'.$last_name.'","'.$birthdate.'","'.$gender.'","'.$city.'","'.$email.'","'.$role.'","'.$address.'",0)';
         if(mysqli_query($conn,$sql)){
             $wait = "Please Wait To Be Approved.";
         }
