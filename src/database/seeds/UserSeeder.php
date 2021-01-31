@@ -15,5 +15,8 @@ class AdminSeeder extends Seeder
         $password = Hash::make("admin");
         $sql = 'insert into User (user_name,password,first_name,last_name,Bdate,gender,city,email,approved,role) values("admin","'.$password.'","Aly","Ramzy","1998-6-12","M" , "Cairo","alyhassan62@yahoo.com",1,"Admin")';
         mysqli_query($conn,$sql);
+        $password = Hash::make("test");
+        $sql = 'insert into User (user_name,password,first_name,last_name,Bdate,gender,city,email,approved,role) values("Aly","'.$password.'","Aly","Ramzy","1998-6-12","M" , "Cairo","alyhassan62@yahoo.com",1,"Fan")';
+        mysqli_query($conn,$sql);
     }
 }
