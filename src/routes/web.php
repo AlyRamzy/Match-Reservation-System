@@ -22,10 +22,8 @@ Route::get('/', function () {
 
 
 //---------------------------------ROUTES FROM FORMS TO CONTROLLERS ------------------------------------------------------------//
-Route::post('/log_in', 'LoginController@ValnLog');
+Route::post('/log_in', 'LoginController@LogIn');
 
 Route::post('/sign_up', 'LoginController@SignUp');
 
-Route::post('/change_password', 'LoginController@ChangePassword');
 
-Route::post('/logout', 'LoginController@LogOut');

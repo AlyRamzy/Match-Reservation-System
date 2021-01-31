@@ -3,39 +3,98 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use DB;
 
 class LoginController extends Controller
 {
     
-    public function ValnLog()
+    public function LogIn()
     {
-        $username = request("username");
-        $password = request("password");
+       
+        #Connect With Database
         $conn =mysqli_connect("localhost", "dbuser", "", "Match_System");
         if(!$conn){
             die('Could not connect '.mysqli_error());
         }
+        #Fetch Data From Request
+        $username_login_error = $password_login_error = $approved = "";
 
-        #$sql = 'insert into user (username,password) values("'.$username.'","'.$password.' ")';
-       /* if(mysqli_query($conn,$sql)){
+        $username = request("username");
+        $password = request("password");
 
-            #echo "Succesfully Login";
-            return view('/login',compact("Test"));
+        #Simple Checks on Data 
+
+        if(empty($username)){
+            $username_login_error = "Please Enter Valid username";
+            return view('/login',compact("username_login_error"));
         }
-        else{
-            
-            #echo "Error "."<br>". mysqli_error($conn);
-            return view('/login');
-        }*/
-        $t = "TEST";
-        return view('/login',compact("t"));
+        if(empty($password)){
+            $password_login_error = "Please Enter Valid Password";
+            return view('/login',compact("password_login_error"));
+        }
+
+        #Check username and password 
+        $sql = "Select * from User;";
+        $result = mysqli_query($conn,$sql);
+        while($row  = mysqli_fetch_array($result)){
+            if ($row['user_name'] == $username){ //Found The User Search For 
+                //Check Password 
+                if (Hash::check($password, $row['password'])) {
+                    // Same Password
+                    //Check User Type 
+                    if($row['role']=="Admin"){
+                        //Route To Admin Page
+                        echo "Admin";
+                        return;
+                    }
+                    if($row['approved']==1){
+                        //Approved Fan or Manger
+                        if($row['role']=="Fan"){
+                            //Route To Fan Page
+                            echo "Fan";
+                        }
+                        else{
+                            //Route To Manager Page
+                            echo "Manager";
+                        }
+
+                    }
+                    else{
+                        //Not Approved
+                        $approved = "Please Wait to be Approved.";
+                        return view('/login',compact("approved"));
+
+                    }
+
+
+                 }
+                 else{
+                     //Wrong Password
+                     $password_login_error = "Invaild Password";
+                     return view('/login',compact("password_login_error"));
+                 }
+                
+            }
+           
+        }
+
+
+       
+        $username_login_error = "UserName Does Not Exist";
+        return view('/login',compact("username_login_error"));
 
     }
 
     public function SignUp()
     {
+        #Connect With Database
+        $conn =mysqli_connect("localhost", "dbuser", "", "Match_System");
+        if(!$conn){
+            die('Could not connect '.mysqli_error());
+        }
+        #Fetch Data From Request 
         $username_signup_error = $password_signup_error = $firstname_signup_error = $lastname_signup_error = $city_signup_error = $email_signup_error = $wait = "";
 
         $username = request("username");
@@ -49,6 +108,7 @@ class LoginController extends Controller
         $gender = request("gender");
         $role = request("role");
 
+        #Simple Checks on Data 
         if(empty($username)){
             $username_signup_error = "Please Enter Valid username";
             return view('/login',compact("username_signup_error"));
@@ -78,8 +138,37 @@ class LoginController extends Controller
             $email_signup_error = "Invalid email format";
             return view('/login',compact("email_signup_error"));
         }
+        #Get Gender
+        if($gender=="female"){
+            $gender = 'F';
+        }
+        else{
+            $gender = 'M';
+        }
+
+        #Check The username is not created before 
+        $sql = "Select * from User;";
+        $result = mysqli_query($conn,$sql);
+        while($row  = mysqli_fetch_array($result)){
+            if ($row['user_name'] == $username){
+                $username_signup_error = "User Name Already Exists";
+                return view('/login',compact("username_signup_error"));
+            }
+           
+        }
+
+        #Insert inside Database
+        $password = Hash::make($password);
+        $sql = 'insert into User (user_name,password,first_nane,last_name,Bdate,gender,city,email,role,address,approved) values("'.$username.'","'.$password.'","'.$first_name.'","'.$last_name.'","'.$birthdate.'","'.$gender.'","'.$city.'","'.$email.'","'.$role.'","'.$address.'",0)';
+        if(mysqli_query($conn,$sql)){
+            $wait = "Please Wait To Be Approved.";
+        }
+        else{
+            $wait =  mysqli_error($conn);
+        }
         
-        $wait = "Please Wait To Be Approved.";
+        
+       
         return view('/login',compact("wait"));
 
     

@@ -131,7 +131,7 @@
       echo '<span class="error">',$password_login_error,'</span><br>';
     }
 
-    if(empty($approved) && isset($approved)){
+    if(!empty($approved) ){
       echo '<span class="error">Account Not Aprroved , Please Wait</span><br>';
     }
 
