@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 //-----------------------------------BASIC ROUTES------------------------------------------------------------------------------//
 Route::get('/', function () {
-    return view('login');
+    return view('match_details');
 });
 
 //---------------------------------ROUTES FROM FORMS TO CONTROLLERS ------------------------------------------------------------//
