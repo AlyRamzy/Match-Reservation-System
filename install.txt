@@ -10,4 +10,10 @@ sudo apt install php7.2-mysql
 2- Creata Database
 https://www.atlantic.net/vps-hosting/how-to-manage-databases-in-mariadb-on-ubuntu-18-04/
 
+3- to create vendors folder run (you shoud run it after cloning the repo) in src directory 
+composer update
 
+
+4- to create .env file you should run the following commands in src directory 
+cp .env.example .env
+php artisan key:generate
