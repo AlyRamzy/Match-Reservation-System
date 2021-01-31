@@ -34,9 +34,9 @@ function approve(username) {
        <br>
       <h2 ><a href="Remove_Users" >Remove Users</a></h4>
       <br>
-      <h2 style="background:black"><a href="Accept_Fans">Accept Fans</a></h4>
+      <h2 ><a href="Accept_Fans">Accept Fans</a></h4>
       <br>
-      <h2><a href="Accept_Mangers">Accept Managers</a></h4>
+      <h2 style="background:black"><a href="Accept_Mangers">Accept Managers</a></h4>
       <br>
       
 
