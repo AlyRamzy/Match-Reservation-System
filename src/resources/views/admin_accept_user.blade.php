@@ -14,7 +14,12 @@ function approve(username) {
                success:function(data) {
                   $("#".concat(data.username)).hide(2000);
                   
-               }
+               },
+               error: function() {
+                    alert("You Are Not Authorized To Take This Action.");
+                    window.location.href = "{{URL::to('/')}}"
+                   
+                }
             });
  
 }

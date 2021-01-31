@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use DB;
+use Session;
+
 
 class LoginController extends Controller
 {
@@ -46,6 +48,8 @@ class LoginController extends Controller
                     //Check User Type 
                     if($row['role']=="Admin"){
                         //Route To Admin Page
+                        setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
+                        setcookie('type', "Admin", time() + (86400 * 30), "/"); //Available for approximately one day
                         return View('/admin');
                         
                     }
@@ -53,11 +57,15 @@ class LoginController extends Controller
                         //Approved Fan or Manger
                         if($row['role']=="Fan"){
                             //Route To Fan Page
+                            setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
+                            setcookie('type', "Fan", time() + (86400 * 30), "/"); //Available for approximately one day
                             echo "Fan";
                             return;
                         }
                         else{
                             //Route To Manager Page
+                            setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
+                            setcookie('type', "Manager", time() + (86400 * 30), "/"); //Available for approximately one day
                             echo "Manager";
                             return;
                         }
@@ -176,4 +184,11 @@ class LoginController extends Controller
     
 
     }
+    public function LogOut()
+    {
+        setcookie("user", "", time() - 3600);
+        setcookie("type", "", time() - 3600);
+        echo '<script>alert("You Are Logged Out")</script>'; 
+        return view('/login');
+     }
 }

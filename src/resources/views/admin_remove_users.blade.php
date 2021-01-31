@@ -3,12 +3,12 @@
 
 <script>
 
-function approve(username) {
+function remove(username) {
  
 
     $.ajax({
                type:'GET',
-               url:'/Approve_User',
+               url:'/Remove_One_User',
                data:{username:username},
    
                success:function(data) {
@@ -32,11 +32,11 @@ function approve(username) {
 
 @section('side_bar')
        <br>
-      <h2 ><a href="Remove_Users" >Remove Users</a></h4>
+      <h2 style="background:black"><a href="Remove_Users" >Remove Users</a></h4>
       <br>
       <h2 ><a href="Accept_Fans">Accept Fans</a></h4>
       <br>
-      <h2 style="background:black"><a href="Accept_Mangers">Accept Managers</a></h4>
+      <h2 ><a href="Accept_Mangers">Accept Managers</a></h4>
       <br>
       
 
@@ -44,7 +44,7 @@ function approve(username) {
 @endsection
 
 @section('content')
-      <h1>Welcome Site Admin, Here is the user waiting for approval.</h1>
+      <h1>Welcome Site Admin, Here is the users of the system remove whoever you want.</h1>
       <br><br>
       <?php
 
@@ -69,6 +69,7 @@ function approve(username) {
         <th>Address</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Approved</th>
       </tr>
     </thead>
     <tbody>
@@ -85,8 +86,17 @@ function approve(username) {
              echo '<td>'.$row['address'].'</td>';
              echo '<td>'.$row['email'].'</td>';
              echo '<td>'.$row['role'].'</td>';
-             echo '<td><input type="button" class="btn btn-info" value="Accept" onClick="approve('."' {$row['user_name']}'" .')"></td>';
+             if($row['approved']==1){
+                echo '<td>Yes</td>';
 
+             }
+             else{
+                echo '<td>No</td>';
+
+             }
+
+             echo '<td><input type="button" class="btn btn-info" value="Remove" onClick="remove('."' {$row['user_name']}'" .')"></td>';
+           
              echo "</tr>";
 
          }
