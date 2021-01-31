@@ -47,7 +47,7 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right" style="margin-right:12px">
 
-          <form action="/logout" method="post">
+          <form action="/log_out" method="post">
             {{ csrf_field() }}
             <button type="submit" name="logout" value="logout" class="btn-link" style="margin-top:12px"><span class="glyphicon glyphicon-log-out"></span> LogOut</button>
           </form>
