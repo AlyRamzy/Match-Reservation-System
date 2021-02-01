@@ -35,6 +35,7 @@ Route::post('/log_out', 'LoginController@LogOut');
 Route::get('/Accept_Fans','AdminController@AcceptFans');
 Route::get('/Accept_Mangers','AdminController@AcceptManagers');
 Route::get('/Remove_Users','AdminController@RemoveUsersSite');
+Route::get('/Match_Details','MatchDetailsController@GetMatchDetails');
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');
