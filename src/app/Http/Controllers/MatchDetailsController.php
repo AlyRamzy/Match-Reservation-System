@@ -21,7 +21,7 @@ class MatchDetailsController extends Controller
         }
 
         $input =request("match_id");
-        // $input=1;
+        //$input=1;
 
         $sql = 'select * from Matches Where match_id ='.$input.';';
         $result = mysqli_query($conn,$sql);

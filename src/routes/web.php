@@ -43,8 +43,10 @@ Route::post('/log_in', 'LoginController@LogIn');
 Route::post('/sign_up', 'LoginController@SignUp');
 
 Route::post('/log_out', 'LoginController@LogOut');
+Route::post('/ConfirmReservation','ReserveController@Confirm');
 
 //-----------------------------------ROUTES FOR VIEWS THAT NEED DATA TO START--------------------------------------------------//
+Route::get('/Reserve','ReserveController@Reserve');
 Route::get('/Accept_Fans', 'AdminController@AcceptFans');
 Route::get('/Accept_Mangers', 'AdminController@AcceptManagers');
 Route::get('/Remove_Users', 'AdminController@RemoveUsersSite');
