@@ -13,11 +13,11 @@ class MatchListController extends Controller
             die('Could not connect '.mysqli_error());
         }
 
-        $sql = 'select matches.match_id, matches.date_time, t1.team_name as home, t2.team_name as away, stadium.name as stadium_name 
-                    from matches, teams t1, teams t2, stadium 
-                    where t1.team_id = matches.home_team and 
-                        t2.team_id = matches.away_team and 
-                        stadium.stadium_id = matches.stadium_id;';
+        $sql = 'select Matches.match_id, Matches.date_time, t1.team_name as home, t2.team_name as away, Stadium.name as stadium_name 
+                from Matches, Teams t1, Teams t2, Stadium 
+                where t1.team_id = Matches.home_team and 
+                    t2.team_id = Matches.away_team and 
+                    Stadium.stadium_id = Matches.stadium_id;';
 
         $result = mysqli_query($conn, $sql);
         
