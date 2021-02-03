@@ -20,8 +20,8 @@ class MatchDetailsController extends Controller
             die('Could not connect '.mysqli_error());
         }
 
-        //$input =request("match_id");
-        $input=1;
+        $input =request("match_id");
+        //$input=1;
 
         $sql = 'select * from Matches Where match_id ='.$input.';';
         $result = mysqli_query($conn,$sql);
