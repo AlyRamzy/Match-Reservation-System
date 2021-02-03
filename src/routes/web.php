@@ -21,7 +21,20 @@ Route::get('/', function () {
         return View('/admin');
     }
     return view('login');
+});
 
+Route::get('/add_match', function () {
+    if(isset($_COOKIE['type']) && $_COOKIE['type']=="Manager"){
+        return View('/admin');
+    }
+    return view('login');
+});
+
+Route::get('/add_stadium', function () {
+    if(isset($_COOKIE['type']) && $_COOKIE['type']=="Manager"){
+        return View('/admin');
+    }
+    return view('login');
 });
 
 //---------------------------------ROUTES FROM FORMS TO CONTROLLERS ------------------------------------------------------------//
@@ -32,10 +45,12 @@ Route::post('/sign_up', 'LoginController@SignUp');
 Route::post('/log_out', 'LoginController@LogOut');
 
 //-----------------------------------ROUTES FOR VIEWS THAT NEED DATA TO START--------------------------------------------------//
-Route::get('/Accept_Fans','AdminController@AcceptFans');
-Route::get('/Accept_Mangers','AdminController@AcceptManagers');
-Route::get('/Remove_Users','AdminController@RemoveUsersSite');
-Route::get('/Match_Details','MatchDetailsController@GetMatchDetails');
+Route::get('/Accept_Fans', 'AdminController@AcceptFans');
+Route::get('/Accept_Mangers', 'AdminController@AcceptManagers');
+Route::get('/Remove_Users', 'AdminController@RemoveUsersSite');
+Route::get('/Match_Details', 'MatchDetailsController@GetMatchDetails');
+Route::get('/match_list', 'MatchListController@GetMatchList');
+Route::get('/edit_match', 'MatchDetailsController@GetMatchDetails');
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');
