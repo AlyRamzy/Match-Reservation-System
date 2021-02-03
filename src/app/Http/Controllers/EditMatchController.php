@@ -9,10 +9,10 @@ class EditMatchController extends Controller
 {
     public function GetMatchDetails(){
         #Check Authorization
-        if($_COOKIE['type']=="Manager"){
-            echo '<script>alert("You Are Not Authorized To View This Page.")</script>';
-            return redirect('/');
-        }
+        // if($_COOKIE['type']=="Manager"){
+        //     echo '<script>alert("You Are Not Authorized To View This Page.")</script>';
+        //     return redirect('/');
+        // }
 
         #Connect With Database
         $conn =mysqli_connect("localhost", "dbuser", "", "Match_System");
@@ -32,10 +32,14 @@ class EditMatchController extends Controller
 
         $result = mysqli_query($conn, $sql);
         
-        $sql = 'select team_name from teams';
-        $teams = mysqli_query($conn, $sql);
+        $sql = 'select * from teams';
+        $teams1 = mysqli_query($conn, $sql);
+        $teams2 = mysqli_query($conn, $sql);
 
-        return View("/add_match",compact('result', 'teams'));
+        $sql = 'select * from stadium';
+        $stadiums = mysqli_query($conn, $sql);
+
+        return View("/add_match",compact('result', 'teams1', 'teams2', 'stadiums'));
 
     }
 

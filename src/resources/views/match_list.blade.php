@@ -25,7 +25,7 @@
         }
 
         # MANAGER
-        else if($_COOKIE['type']!="Manager") {
+        else if($_COOKIE['type']=="Manager") {
             echo '<br>';
             echo '<h4><a href="match_list">View All Matches</a></h4>';
             echo '<br>';

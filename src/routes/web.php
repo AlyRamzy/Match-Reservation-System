@@ -50,7 +50,7 @@ Route::get('/Accept_Mangers', 'AdminController@AcceptManagers');
 Route::get('/Remove_Users', 'AdminController@RemoveUsersSite');
 Route::get('/Match_Details', 'MatchDetailsController@GetMatchDetails');
 Route::get('/match_list', 'MatchListController@GetMatchList');
-Route::get('/edit_match', 'MatchDetailsController@GetMatchDetails');
+Route::get('/edit_match', 'EditMatchController@GetMatchDetails');
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');
