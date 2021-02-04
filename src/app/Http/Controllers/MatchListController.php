@@ -14,10 +14,10 @@ class MatchListController extends Controller
         }
 
         $sql = 'select Matches.match_id, Matches.date_time, t1.team_name as home, t2.team_name as away, Stadium.name as stadium_name 
-                    from Matches, Teams t1, Teams t2, Stadium 
-                    where t1.team_id = matches.home_team and 
-                        t2.team_id = Matches.away_team and 
-                        Stadium.stadium_id = Matches.stadium_id;';
+                from Matches, Teams t1, Teams t2, Stadium 
+                where t1.team_id = Matches.home_team and 
+                    t2.team_id = Matches.away_team and 
+                    Stadium.stadium_id = Matches.stadium_id;';
 
         $result = mysqli_query($conn, $sql);
         
