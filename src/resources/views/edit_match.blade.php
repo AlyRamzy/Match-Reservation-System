@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('Title', 'Matches List - Match Reservation System')
+@section('Title', 'Edit Match - Match Reservation System')
 
 
 
@@ -51,13 +51,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    
+    <?php
+        if($result){
+            mysqli_data_seek($result, 0);
+            $selected = mysqli_fetch_array($result);
+            echo "<script>
+                $(function () {
+                    $('#datetimepicker1').datetimepicker({useCurrent: false, format: 'DD.MM.YYYY H:mm', defaultDate:".$selected['date_time']."});
+                });
+            </script>";
+        }
+        else {
+            echo "<script>
+                $(function () {
+                    $('#datetimepicker1').datetimepicker();
+                });
+            </script>";
+        }
+        
+    ?>
 
-    <script>
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-        });
-    </script>
-
+    <form method="post" action="/submit_match">
+    <?php
+        if($result) {
+            echo '<input type="hidden" name="type" value="edit"/>';
+        }
+        else {
+            echo '<input type="hidden" name="type" value="add"/>';
+        }
+    ?>
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">Add Match</div>
@@ -68,8 +91,17 @@
                             <label class="control-label">Home Team</label>
                             <select name="home_team" id="home_team" class="form-control" required>
                                 <?php
+                                    if($result){
+                                        mysqli_data_seek($result, 0);
+                                        $selected = mysqli_fetch_array($result);
+                                    }
                                     while($team = mysqli_fetch_array($teams1)) {
-                                        echo '<option value="'.$team['team_id'].'">'.$team['team_name'].'</option>';
+                                        if($result && $team['team_id']==$selected['home_team']){
+                                           echo '<option value="'.$team['team_id'].'" selected>'.$team['team_name'].'</option>';    
+                                        }
+                                        else {
+                                            echo '<option value="'.$team['team_id'].'">'.$team['team_name'].'</option>';
+                                        }
                                     }
                                 ?>
                             </select>
@@ -80,8 +112,17 @@
                             <label class="control-label">Away Team</label>
                             <select name="away_team" id="away_team" class="form-control" required>
                                 <?php
+                                    if($result){
+                                        mysqli_data_seek($result, 0);
+                                        $selected = mysqli_fetch_array($result);
+                                    }
                                     while($team = mysqli_fetch_array($teams2)) {
-                                        echo '<option value="'.$team['team_id'].'">'.$team['team_name'].'</option>';
+                                        if($result && $team['team_id']==$selected['away_team']){
+                                            echo '<option value="'.$team['team_id'].'" selected>'.$team['team_name'].'</option>';
+                                        }
+                                        else {
+                                            echo '<option value="'.$team['team_id'].'">'.$team['team_name'].'</option>';
+                                        }
                                     }
                                 ?>
                             </select>
@@ -94,8 +135,17 @@
                             <label class="control-label">Stadium</label>
                             <select name="stadium" id="stadium" class="form-control" required>
                                 <?php
+                                    if($result){
+                                        mysqli_data_seek($result, 0);
+                                        $selected = mysqli_fetch_array($result);
+                                    }
                                     while($s = mysqli_fetch_array($stadiums)) {
-                                        echo '<option value="'.$s['stadium_id'].'">'.$s['name'].'</option>';
+                                        if($result && $s['stadium_id']==$selected['stadium_id']){
+                                            echo '<option value="'.$s['stadium_id'].'" selected>'.$s['name'].'</option>';
+                                        }
+                                        else {
+                                            echo '<option value="'.$s['stadium_id'].'">'.$s['name'].'</option>';
+                                        }
                                     }
                                 ?>
                             </select>
@@ -105,7 +155,7 @@
                         <div class="form-group">
                             <label class="control-label">Match Time and Date</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" />
+                                <input type="text" name="date_time" class="form-control"/>
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -117,19 +167,46 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Main Referee</label>
-                            <input type="text" class="form-control" name="main_referee" id="main_referee">
+                            <?php
+                                if($result){
+                                    mysqli_data_seek($result, 0);
+                                    $selected = mysqli_fetch_array($result);
+                                    echo '<input type="text" class="form-control" name="main_referee" id="main_referee" value="'.$selected['main_referee'].'">';
+                                }
+                                else {
+                                    echo '<input type="text" class="form-control" name="main_referee" id="main_referee">';
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">First Linesman</label>
-                            <input type="text" class="form-control" name="first_linesman" id="first_linesman">
+                            <?php
+                                if($result){
+                                    mysqli_data_seek($result, 0);
+                                    $selected = mysqli_fetch_array($result);
+                                    echo '<input type="text" class="form-control" name="first_linesman" id="first_linesman" value="'.$selected['lineman_first'].'">';
+                                }
+                                else {
+                                    echo '<input type="text" class="form-control" name="first_linesman" id="first_linesman">';
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Second Linesman</label>
-                            <input type="text" class="form-control" name="second_linesman" id="second_linesman">
+                            <?php
+                                if($result){
+                                    mysqli_data_seek($result, 0);
+                                    $selected = mysqli_fetch_array($result);
+                                    echo '<input type="text" class="form-control" name="second_linesman" id="second_linesman" value="'.$selected['lineman_second'].'">';
+                                }
+                                else {
+                                    echo '<input type="text" class="form-control" name="second_linesman" id="second_linesman">';
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -137,6 +214,7 @@
             </div>
         </div>
     </div>
+    </form>
 @endsection
 
 

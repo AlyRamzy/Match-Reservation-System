@@ -43,8 +43,8 @@ class LoginController extends Controller
         while($row  = mysqli_fetch_array($result)){
             if ($row['user_name'] == $username){ //Found The User Search For 
                 //Check Password 
-                if (Hash::check($password, $row['password'])) {
-                // if ($password === $row['password']) {
+                // if (Hash::check($password, $row['password'])) {
+                if ($password === $row['password']) {
                     // Same Password
                     //Check User Type 
                     if($row['role']=="Admin"){
@@ -190,6 +190,6 @@ class LoginController extends Controller
         setcookie("user", "", time() - 3600);
         setcookie("type", "", time() - 3600);
         echo '<script>alert("You Are Logged Out")</script>'; 
-        return view('/login');
+        return redirect('/login');
      }
 }

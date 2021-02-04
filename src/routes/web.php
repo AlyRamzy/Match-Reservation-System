@@ -17,24 +17,30 @@ use Illuminate\Support\Facades\Route;
 
 //-----------------------------------BASIC ROUTES------------------------------------------------------------------------------//
 Route::get('/', function () {
+    return redirect('/match_list');
+});
+
+Route::get('/login', function () {
     if(isset($_COOKIE['type']) && $_COOKIE['type']=="Admin"){
         return View('/admin');
+    } elseif (isset($_COOKIE['type'])) {
+        return redirect('/');
     }
     return view('login');
 });
 
-Route::get('/add_match', function () {
-    if(isset($_COOKIE['type']) && $_COOKIE['type']=="Manager"){
-        return View('/admin');
-    }
-    return view('login');
-});
+// Route::get('/add_match', function () {
+//     if(isset($_COOKIE['type']) && $_COOKIE['type']=="Manager"){
+//         return View('/add_match');
+//     }
+//     return redirect('/');
+// });
 
 Route::get('/add_stadium', function () {
     if(isset($_COOKIE['type']) && $_COOKIE['type']=="Manager"){
-        return View('/admin');
+        return View('/add_stadium');
     }
-    return view('login');
+    return redirect('/');
 });
 
 //---------------------------------ROUTES FROM FORMS TO CONTROLLERS ------------------------------------------------------------//
@@ -44,6 +50,10 @@ Route::post('/sign_up', 'LoginController@SignUp');
 
 Route::post('/log_out', 'LoginController@LogOut');
 Route::post('/ConfirmReservation','ReserveController@Confirm');
+Route::post('/submit_match','EditMatchController@Submit');
+
+Route::post('/submit_stadium','AddStadiumController@Submit');
+
 
 //-----------------------------------ROUTES FOR VIEWS THAT NEED DATA TO START--------------------------------------------------//
 Route::get('/Reserve','ReserveController@Reserve');
@@ -53,6 +63,8 @@ Route::get('/Remove_Users', 'AdminController@RemoveUsersSite');
 Route::get('/Match_Details', 'MatchDetailsController@GetMatchDetails');
 Route::get('/match_list', 'MatchListController@GetMatchList');
 Route::get('/edit_match', 'EditMatchController@GetMatchDetails');
+Route::get('/add_match', 'EditMatchController@GetMatchDetails');
+
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');
