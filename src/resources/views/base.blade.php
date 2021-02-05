@@ -47,10 +47,27 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right" style="margin-right:12px">
 
-          <form action="/log_out" method="post">
-            {{ csrf_field() }}
-            <button type="submit" name="logout" value="logout" class="btn-link" style="margin-top:12px"><span class="glyphicon glyphicon-log-out"></span> LogOut</button>
-          </form>
+          
+            <?php
+              if(isset($_COOKIE['type'])) {
+                echo '<form action="/log_out" method="post">';
+              }
+            ?>
+                {{ csrf_field() }}
+            <?php
+              if(isset($_COOKIE['type'])) {
+                echo '<button type="submit" class="btn-link" style="margin-top:12px"><span class="glyphicon glyphicon-log-out"></span> LogOut</button>';
+              }
+            ?>
+                </form>
+            <?php
+              if(!isset($_COOKIE['type'])) {
+                echo '<form action="/login" method="get">';
+                echo '<button type="submit" class="btn-link" style="margin-top:12px"><span class="glyphicon glyphicon-log-in"></span> Login</button>';
+                echo '</form>';
+              }
+            ?>
+            
         </ul>
          </form>
         </ul>
