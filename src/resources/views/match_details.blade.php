@@ -255,7 +255,13 @@ function reserve(m_id) {
           
       }
       if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Manager"){
-          echo '<input type="button" style="margin: 1em; background-color:rgb(66, 155, 245);" class="btn btn-info" value="Edit" >';
+          foreach($result as $row)
+          {
+               $m_id=$row['match_id'];
+          }
+          echo '<form action="/edit_match" method="GET">';
+          echo '<input type="hidden" name="match_id" value="'.$m_id.'">';
+          echo '<input type="submit" class="btn btn-primary" value="Edit">';
           
       }
       

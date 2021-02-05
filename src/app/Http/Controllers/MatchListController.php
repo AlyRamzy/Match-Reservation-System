@@ -17,7 +17,9 @@ class MatchListController extends Controller
                 from Matches, Teams t1, Teams t2, Stadium 
                 where t1.team_id = Matches.home_team and 
                     t2.team_id = Matches.away_team and 
-                    Stadium.stadium_id = Matches.stadium_id;';
+                    Stadium.stadium_id = Matches.stadium_id
+                    and date_time >= NOW()
+                    ORDER BY Matches.match_id;';
 
         $result = mysqli_query($conn, $sql);
         

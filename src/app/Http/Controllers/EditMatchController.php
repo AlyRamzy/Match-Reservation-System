@@ -16,6 +16,7 @@ class EditMatchController extends Controller
             die('Could not connect '.mysqli_error());
         }
         
+        $match_id = request("match_id");
         $home_team = request("home_team");
         $away_team = request("away_team");
         $stadium = request("stadium");
@@ -25,86 +26,40 @@ class EditMatchController extends Controller
         $second_linesman = request("second_linesman");
         $type = request("type");
 
-        if($type=="edit"){
+        if($home_team == $away_team) {
+            $error = "Home Team and Away Team can't be the same!";
+            return EditMatchController::GetMatchDetails($error);
+        } 
 
+        if(!empty($date_time)) {
+            $date = date_create_from_format('d/m/Y h:i a', $date_time);
+            $date_time = date_format($date, 'Y-m-d h:i:s');
+        }
+
+        $sql = '';
+        if($type=="edit"){
+            $sql = "UPDATE `Matches` SET `date_time`='".$date_time."',`main_referee`='".$main_referee."',
+            `lineman_first`='".$first_linesman."',`lineman_second`='".$second_linesman."',`home_team`=".$home_team.",
+            `away_team`=".$away_team.",`stadium_id`=".$stadium." WHERE match_id=".$match_id.";"; 
         }
         else {
-
-        }
-        #Simple Checks on Data 
-
-        if(empty($username)){
-            $username_login_error = "Please Enter Valid username";
-            return view('/login',compact("username_login_error"));
-        }
-        if(empty($password)){
-            $password_login_error = "Please Enter Valid Password";
-            return view('/login',compact("password_login_error"));
+            $sql = "INSERT INTO `Matches`(`date_time`, `main_referee`, `lineman_first`, 
+                        `lineman_second`, `home_team`, `away_team`, `stadium_id`) VALUES
+                        ('".$date_time."','".$main_referee."','".$first_linesman."','".$second_linesman."',
+                        ".$home_team.",".$away_team.",".$stadium.");";
         }
 
-        #Check username and password 
-        $sql = "Select * from User;";
-        $result = mysqli_query($conn,$sql);
-        while($row  = mysqli_fetch_array($result)){
-            if ($row['user_name'] == $username){ //Found The User Search For 
-                //Check Password 
-                if (Hash::check($password, $row['password'])) {
-                // if ($password === $row['password']) {
-                    // Same Password
-                    //Check User Type 
-                    if($row['role']=="Admin"){
-                        //Route To Admin Page
-                        setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
-                        setcookie('type', "Admin", time() + (86400 * 30), "/"); //Available for approximately one day
-                        return View('/admin');
-                        
-                    }
-                    if($row['approved']==1){
-                        //Approved Fan or Manger
-                        if($row['role']=="Fan"){
-                            //Route To Fan Page
-                            setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
-                            setcookie('type', "Fan", time() + (86400 * 30), "/"); //Available for approximately one day
-                            echo "Fan";
-                            return redirect('/match_list');
-                        }
-                        else{
-                            //Route To Manager Page
-                            setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
-                            setcookie('type', "Manager", time() + (86400 * 30), "/"); //Available for approximately one day
-                            echo "Manager";
-                            return redirect('/match_list');
-                        }
-
-                    }
-                    else{
-                        //Not Approved
-                        $approved = "Please Wait to be Approved.";
-                        return view('/login',compact("approved"));
-
-                    }
-
-
-                 }
-                 else{
-                     //Wrong Password
-                     $password_login_error = "Invaild Password";
-                     return view('/login',compact("password_login_error"));
-                 }
-                
-            }
-           
+        $result = mysqli_query($conn, $sql);
+        if($result) {
+            return redirect('/');
+        } else {
+            $error = "Server Error!";
+            return EditMatchController::GetMatchDetails($sql);
         }
-
-
-       
-        $username_login_error = "UserName Does Not Exist";
-        return view('/login',compact("username_login_error"));
-
     }
 
 
-    public function GetMatchDetails(){
+    public function GetMatchDetails($error=''){
         #Check Authorization
         if(!isset($_COOKIE['type']) || $_COOKIE['type']!="Manager"){
             echo '<script>alert("You Are Not Authorized To View This Page.")</script>';
@@ -118,7 +73,7 @@ class EditMatchController extends Controller
         }
 
         $input = request("match_id");
-
+        $match_id = $input;
         $sql = 'select * from Matches where match_id ='.$input.';';
 
         $result = mysqli_query($conn, $sql);
@@ -130,7 +85,7 @@ class EditMatchController extends Controller
         $sql = 'select * from stadium';
         $stadiums = mysqli_query($conn, $sql);
 
-        return View("/edit_match",compact('result', 'teams1', 'teams2', 'stadiums'));
+        return View("/edit_match",compact('error', 'result', 'teams1', 'teams2', 'stadiums', 'match_id'));
 
     }
 
