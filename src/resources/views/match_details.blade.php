@@ -1,6 +1,73 @@
 @extends('base')
 @section('title', 'MatchDetails')
+
 <script>
+
+setInterval(function() {
+        $.ajax({
+            type: "GET",
+            url: "/Reserved_Seats", 
+            data:{matchId:""+<?php echo $input;?>},
+   
+               success:function(data) {
+                   
+                    for (var i = 1; i < <?php echo $rN;?> ; i++) {
+                    
+                         for (var j = 1; j < <?php echo $cN;?> ; j++) {
+                              var elem;
+                              id=i+":"+j;
+                              
+                              if (elem=document.getElementById(id)) {
+                                   elem.style.backgroundColor='rgb(66, 155, 245)';
+                              }
+                         }
+                    }
+                    jsonn= JSON.parse(data.tickets);
+
+                        
+                    jsonn.forEach(function(obj) {
+                         
+                         index = seats.findIndex(x => x.row ==obj.row && x.col==obj.col);
+
+          
+                         if (index > -1) {
+                              
+                              seats.splice(index, 1);
+                              numberOfseats=numberOfseats-1;
+                         }
+                         
+                         var elem;
+                         id=obj.row+":"+obj.col;
+                         
+                         if (elem=document.getElementById(id)) {
+                              elem.style.backgroundColor='rgb(255, 0, 0)';
+                         }
+                         
+          
+                    });
+                    for(let seat of seats){
+                         var col = seat.col;
+                         var row = seat.row;
+                         var elem;
+                         id=row+":"+col;
+                         
+                         if (elem=document.getElementById(id)) {
+                              elem.style.backgroundColor='rgb(245, 164, 66)';
+                         }
+                     }
+                        
+
+               },
+               error: function() {
+                    alert("not responding");
+                    
+                   
+                }
+        });
+    }, 1000);
+    
+
+
 let seats = [];
 numberOfseats=0;
 function clickedfunc(row,column) {
@@ -45,24 +112,31 @@ function clickedfunc(row,column) {
 }
 
 function reserve(m_id) {
-     var urll="Reserve?SeatsNum="+numberOfseats; 
-     var index=1;
-     for(let seat of seats){
-          var col = seat.col;
-          var row = seat.row;
-          urll=urll+"&col"+index+"="+col+"&row"+index+"="+row;
-          
-          index=index+1;
-          }
-     urll=urll+"&match_id="+m_id;
-     location.href = urll; 
+     if (numberOfseats==0)
+     {
+          alert("please select seats first");
+     }
+     else
+     {
+          var urll="Reserve?SeatsNum="+numberOfseats; 
+          var index=1;
+          for(let seat of seats){
+               var col = seat.col;
+               var row = seat.row;
+               urll=urll+"&col"+index+"="+col+"&row"+index+"="+row;
+               
+               index=index+1;
+               }
+          urll=urll+"&match_id="+m_id;
+          location.href = urll;
+     } 
 }
 
 </script>
 
 @section('side_bar')
     <?php
-     #if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Fan"){
+     if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Fan"){
          echo '<br>';
          echo '<h4><a href="">Edit My Data</a></h4>';
          echo '<br>';
@@ -70,7 +144,7 @@ function reserve(m_id) {
          echo '<br>';
          echo '<h4><a href="">Matches List</a></h4>';
          echo '<br>';
-      #}
+      }
       if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Manager"){
           echo '<br>';
          echo '<h4><a href="">Add Stadium</a></h4>';
@@ -172,14 +246,14 @@ function reserve(m_id) {
   </div>
   
   <?php 
-     #if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Fan"){
+     if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Fan"){
           foreach($result as $row)
           {
                $m_id=$row['match_id'];
            }
           echo '<input type="button" style="margin: 1em; background-color:rgb(66, 155, 245);" class="btn btn-info" value="Reserve" onClick="reserve('.$m_id.')">';
           
-      #}
+      }
       if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Manager"){
           echo '<input type="button" style="margin: 1em; background-color:rgb(66, 155, 245);" class="btn btn-info" value="Edit" >';
           
@@ -188,6 +262,16 @@ function reserve(m_id) {
 
 
 ?>
+<script>
+if (<?php echo $someExist;?> ==1)
+{
+     alert("Sorry but some seats reserved before your confirmation so check your reservation list");
+}
+if (<?php echo $validerror;?> ==1)
+{
+     alert("Sorry but there is a problem with your creditcard or password so check that you wrote right data");
+}
+</script>
 @endsection
 
 

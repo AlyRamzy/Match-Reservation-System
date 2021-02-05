@@ -53,6 +53,7 @@ Route::get('/Remove_Users', 'AdminController@RemoveUsersSite');
 Route::get('/Match_Details', 'MatchDetailsController@GetMatchDetails');
 Route::get('/match_list', 'MatchListController@GetMatchList');
 Route::get('/edit_match', 'EditMatchController@GetMatchDetails');
+Route::get('/Reserved_Seats', 'MatchDetailsController@GetReservedSeats');
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');

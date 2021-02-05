@@ -36,11 +36,13 @@
                 }  
       ?>
       <input type="hidden" name="match_id"  value="<?php echo $m_id;?>" >
-      Creditcard:<input type="text" name="creditcard" class="textcolor" required>
+      <h4>Please enter 14 digits creditcard number and 4 digits password :</h4>
+      <p>Creditcard:</p><input type="text" name="creditcard" class="textcolor" required pattern="[0-9]{14}">
       
       
-      Password:  <input type="password" name="password" class="textcolor" required>
+      <p>Password: </p> <input type="password" name="password" class="textcolor" required pattern="[0-9]{4}">
       
+      <p></p>
       <input type="submit" name="submit" value="Confirm Reservation"class="textcolor" >
 
 </form>
