@@ -44,6 +44,7 @@ class LoginController extends Controller
             if ($row['user_name'] == $username){ //Found The User Search For 
                 //Check Password 
                 if (Hash::check($password, $row['password'])) {
+                // if ($password === $row['password']) {
                     // Same Password
                     //Check User Type 
                     if($row['role']=="Admin"){
@@ -60,14 +61,14 @@ class LoginController extends Controller
                             setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
                             setcookie('type', "Fan", time() + (86400 * 30), "/"); //Available for approximately one day
                             echo "Fan";
-                            return;
+                            return redirect('/match_list');
                         }
                         else{
                             //Route To Manager Page
                             setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
                             setcookie('type', "Manager", time() + (86400 * 30), "/"); //Available for approximately one day
                             echo "Manager";
-                            return;
+                            return redirect('/match_list');
                         }
 
                     }
@@ -190,6 +191,6 @@ class LoginController extends Controller
         setcookie("user", "", time() - 3600);
         setcookie("type", "", time() - 3600);
         echo '<script>alert("You Are Logged Out")</script>'; 
-        return view('/login');
+        return redirect('/login');
      }
 }
