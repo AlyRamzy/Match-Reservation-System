@@ -47,7 +47,8 @@ class AdminController extends Controller
 
     }
 
-    public function RemoveUsersSite(){
+    public function RemoveUsersSite()
+    {
         #Check Authorization
         if(!isset($_COOKIE['type']) || $_COOKIE['type']!="Admin"){
             echo '<script>alert("You Are Not Authorized To View This Page.")</script>';

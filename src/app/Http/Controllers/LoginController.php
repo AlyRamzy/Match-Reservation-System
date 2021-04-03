@@ -168,6 +168,7 @@ class LoginController extends Controller
         }
 
         #Insert inside Database
+    
         $password = Hash::make($password);
         $sql = 'insert into User (user_name,password,first_name,last_name,Bdate,gender,city,email,role,address,approved) values("'.$username.'","'.$password.'","'.$first_name.'","'.$last_name.'","'.$birthdate.'","'.$gender.'","'.$city.'","'.$email.'","'.$role.'","'.$address.'",0)';
         if(mysqli_query($conn,$sql)){
