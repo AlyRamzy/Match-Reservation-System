@@ -26,7 +26,7 @@ class AddStadiumController extends Controller
         $height = request("height");
         $width = request("width");
        
-        $sql = "INSERT INTO `stadium`(`name`, `width`, `height`) VALUES ('".$stadium_name."',".$width.",".$height.")";
+        $sql = "INSERT INTO `Stadium`(`name`, `width`, `height`) VALUES ('".$stadium_name."',".$width.",".$height.")";
         $result = mysqli_query($conn,$sql);
         echo "here";
         return redirect('/');

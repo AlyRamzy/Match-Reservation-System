@@ -78,11 +78,11 @@ class EditMatchController extends Controller
 
         $result = mysqli_query($conn, $sql);
         
-        $sql = 'select * from teams';
+        $sql = 'select * from Teams';
         $teams1 = mysqli_query($conn, $sql);
         $teams2 = mysqli_query($conn, $sql);
 
-        $sql = 'select * from stadium';
+        $sql = 'select * from Stadium';
         $stadiums = mysqli_query($conn, $sql);
 
         return View("/edit_match",compact('error', 'result', 'teams1', 'teams2', 'stadiums', 'match_id'));

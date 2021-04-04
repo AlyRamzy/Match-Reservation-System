@@ -3,8 +3,18 @@
 
 
 @section('side_bar')
-      
-<?php
+    <?php
+        # GUEST
+        if(!isset($_COOKIE['type'])) {
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="login">Login / Signup</a></h4>';
+            echo '<br>';
+        }
+
+        # FAN
+        else if($_COOKIE['type']=="Fan") {
             echo '<br>';
             echo '<h4><a href="match_list">View All Matches</a></h4>';
             echo '<br>';
@@ -12,8 +22,21 @@
             echo '<br>';
             echo '<h4><a href="View_Reservations">My Reservations</a></h4>';
             echo '<br>';
-?>
+        }
 
+        # MANAGER
+        else if($_COOKIE['type']=="Manager") {
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="add_match">Add Match</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="add_stadium">Add Stadium</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
+            echo '<br>';
+        }
+    ?> 
 @endsection
 
 @section('content')
@@ -77,7 +100,7 @@
                 if ($row['address'] != null ) 
                 echo '<input type="text" name="address" value='.$row['address'].'  class="input-xlarge" >';
                 else
-                echo '<input type="text" class="input-xlarge">';
+                echo '<input type="text" name="address" class="input-xlarge">';
                 
                 echo '<br>';
         
@@ -85,7 +108,7 @@
                 echo'<label>City</label>';
                 echo '<br>';
                 
-                echo'<input type="text" name="city" value='.$row['city'].'  class="input-xlarge" required>';
+                echo'<input type="text" name="city" value="'.$row['city'].'"  class="input-xlarge" required>'; # Follow This One
               
                 echo '<br>';
                 echo'<label>gender</label>';

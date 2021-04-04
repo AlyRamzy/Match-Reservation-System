@@ -17,15 +17,18 @@ use Illuminate\Support\Facades\Route;
 
 //-----------------------------------BASIC ROUTES------------------------------------------------------------------------------//
 Route::get('/', function () {
-    return redirect('/View_Profile');
+    return  redirect ('match_list');
 });
 
 Route::get('/login', function () {
     if(isset($_COOKIE['type']) && $_COOKIE['type']=="Admin"){
         return View('/admin');
-    } elseif (isset($_COOKIE['type'])) {
-        return redirect('/');
-    }
+    } elseif (isset($_COOKIE['type'])&& $_COOKIE['type']=="Fan") {
+       return  redirect ('match_list');
+    } 
+    elseif (isset($_COOKIE['type'])&& $_COOKIE['type']=="Manager") {
+        return  redirect ('match_list');
+    } 
     return view('login');
 });
 

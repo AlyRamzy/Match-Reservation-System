@@ -29,7 +29,7 @@ class ProfileController extends Controller
             return  ProfileController::ViewProfile($password_signup_error);        
         }
         $password = Hash::make($password);
-        $sql = 'Update user set password ="'.$password.'" where user_name ="'.$_COOKIE['user'].'" ';
+        $sql = 'Update User set password ="'.$password.'" where user_name ="'.$_COOKIE['user'].'" ';
         $result = mysqli_query($conn,$sql);
         
     
@@ -55,7 +55,8 @@ class ProfileController extends Controller
     $city = request("city");
     $email = request("email");
     $gender = request("gender");
-  
+    
+
     #Simple Checks on Data 
     if(empty($username))
     {
@@ -75,7 +76,8 @@ class ProfileController extends Controller
     }
     if(empty($address))
     {
-        $address = "NULL";
+        
+        $address = NULL;
     }
     if(empty($city))
     {
@@ -107,7 +109,7 @@ class ProfileController extends Controller
     #update  Database
 
     #$password = Hash::make($password);
-    $sql4 = 'Update user set user_name ="'.$username.'" ,first_name = "'.$firstname.'",last_name = "'.$lastname.'", Bdate = "'.$birthdate.'", gender= "'.$gender.'",city ="'.$city.'",email= "'.$email.'",address = "'.$address.'"  where user_name ="Aly"';
+    $sql4 = 'Update User set user_name ="'.$username.'" ,first_name = "'.$firstname.'",last_name = "'.$lastname.'", Bdate = "'.$birthdate.'", gender= "'.$gender.'",city ="'.$city.'",email= "'.$email.'",address = "'.$address.'"  where user_name ="'.$_COOKIE['user'].'"';
     $result4 = mysqli_query($conn,$sql4);
     #setcookie('user', $username, time() + (86400 * 30), "/");
     
@@ -120,7 +122,7 @@ class ProfileController extends Controller
     {
         
         #Check Authorization
-        if(!isset($_COOKIE['type']) || $_COOKIE['type']!="Fan")
+        if(!isset($_COOKIE['type']) )
         {
             echo '<script>alert("You Are Not Authorized To View This Page.")</script>';
             return View('/login');

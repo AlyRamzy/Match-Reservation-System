@@ -59,15 +59,15 @@ class LoginController extends Controller
                             //Route To Fan Page
                             setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
                             setcookie('type', "Fan", time() + (86400 * 30), "/"); //Available for approximately one day
-                            echo "Fan";
-                            return;
+                            return  redirect ('match_list');
+                            
                         }
                         else{
                             //Route To Manager Page
                             setcookie('user', $username, time() + (86400 * 30), "/"); //Available for approximately one day
                             setcookie('type', "Manager", time() + (86400 * 30), "/"); //Available for approximately one day
                             echo "Manager";
-                            return;
+                            return  redirect ('match_list');
                         }
 
                     }
@@ -137,7 +137,7 @@ class LoginController extends Controller
         }
        
         if(empty($address)){
-            $address = "NULL";
+            $address = NULL;
         }
         if(empty($city)){
             $city_signup_error = "Please Enter Valid City";

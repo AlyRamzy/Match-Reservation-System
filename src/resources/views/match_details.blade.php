@@ -1,3 +1,5 @@
+
+
 @extends('base')
 @section('title', 'MatchDetails')
 
@@ -139,28 +141,39 @@ function reserve(m_id) {
 
 @section('side_bar')
     <?php
-     if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Fan"){
-         echo '<br>';
-         echo '<h4><a href="">Edit My Data</a></h4>';
-         echo '<br>';
-         echo '<h4><a href="">My Reservation List</a></h4>';
-         echo '<br>';
-         echo '<h4><a href="">Matches List</a></h4>';
-         echo '<br>';
-      }
-      if(isset($_COOKIE['type'])  && $_COOKIE['type']=="Manager"){
-          echo '<br>';
-         echo '<h4><a href="">Add Stadium</a></h4>';
-         echo '<br>';
-         echo '<h4><a href="">Add Match</a></h4>';
-         echo '<br>';
-         echo '<h4><a href="">View All Matches</a></h4>';
-         echo '<br>';
-      }
-      
-      
-?>
+        # GUEST
+        if(!isset($_COOKIE['type'])) {
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="login">Login / Signup</a></h4>';
+            echo '<br>';
+        }
 
+        # FAN
+        else if($_COOKIE['type']=="Fan") {
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Reservations">My Reservations</a></h4>';
+            echo '<br>';
+        }
+
+        # MANAGER
+        else if($_COOKIE['type']=="Manager") {
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="add_match">Add Match</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="add_stadium">Add Stadium</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
+            echo '<br>';
+        }
+    ?> 
 @endsection
 
 @section('content')
