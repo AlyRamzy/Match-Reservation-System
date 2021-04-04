@@ -31,12 +31,14 @@ class ViewReservationsController extends Controller
     public function CancelReservations()
     {
         if(!isset($_COOKIE['type']) || $_COOKIE['type']!="Fan"){
+        
             
-            return response()->json(array('status'=> "Failed"), 400);
+            return response()->json(array('Status'=> "400"), 400);
 
         }
      
         $input =request("ticket_id");
+        
        
 
         #Connect With Database
@@ -45,21 +47,20 @@ class ViewReservationsController extends Controller
             die('Could not connect '.mysqli_error());
         }
 
-        $sql = 'select date_time  from matches m , Ticket e where ticket_id  = ' .$input.'  and  e.match_id = m.match_id ';
+        $sql = 'select date_time  from Matches m , Ticket e where ticket_id  = ' .$input.'  and  e.match_id = m.match_id ';
         $result = mysqli_query($conn,$sql);
         $row  = mysqli_fetch_array($result);
         $date1 = $row['date_time'];
+        
        
         
         $date1 = Carbon::parse($date1);
         $date1 = $date1->subDays(3);
         $date2 = Carbon::now();
       
-        echo $date2 ;
-        echo $date1 ;
         
         $check = $date1->gte($date2);
-        dump($check);
+        
         if ($check)
         {
         $sql = 'Delete From  Ticket  WHERE ticket_id  = ' .$input.';';
@@ -67,7 +68,7 @@ class ViewReservationsController extends Controller
         return response()->json(array('ticket_id'=> $input), 200);
         }
         else 
-        return response()->json(array('ticket_id'=> $input), 401);
+        return response()->json(array('Status'=> "401"), 401);
 
         #AJAX Response
       

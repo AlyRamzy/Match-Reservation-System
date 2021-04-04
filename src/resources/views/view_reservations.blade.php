@@ -9,17 +9,36 @@ function cancel_reservations(ticket_id )
     $.ajax({
                type:'GET',
                url:'/Cancel_Reservations',
-               data:{ticket_id :ticket_id },
+               data:{ticket_id :ticket_id},
    
                success:function(data) {
                   $("#".concat(data.ticket_id )).hide(2000);
                   
                },
-               error: function() {
-                    alert("You Are Not Authorized To Take This Action.");
-                    window.location.href = "{{URL::to('/')}}"
+               error: function(data) {
+
+                    
+                      if (data.status == 400){
+                        alert("You Are Not Authorized To Take This Action.");
+
+
+                      }
+                      else if(data.status ==401){
+                        alert("You Can only delete within 3 days before the match starts .");
+
+                      }
+                      
+                    
+                       window.location.href = "{{URL::to('/')}}"
+
+                    
+                      
+
+                    
+                    
                    
                 }
+                
             });
  
 }
