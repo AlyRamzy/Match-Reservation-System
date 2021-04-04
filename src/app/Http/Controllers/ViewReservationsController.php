@@ -22,8 +22,9 @@ class ViewReservationsController extends Controller
             die('Could not connect '.mysqli_error());
         }
         
-        $sql = 'select * from ticket Where user_name = "'.$_COOKIE['user'].'";';
+        $sql = 'select * from Ticket Where user_name = "'.$_COOKIE['user'].'";';
         $result = mysqli_query($conn,$sql);
+        #echo $result;
         return View("/view_reservations",compact('result'));
 
     }
@@ -31,7 +32,7 @@ class ViewReservationsController extends Controller
     {
         if(!isset($_COOKIE['type']) || $_COOKIE['type']!="Fan"){
             
-            return response()->json(array('status'=> "Failed"), 401);
+            return response()->json(array('status'=> "Failed"), 400);
 
         }
      
@@ -44,7 +45,7 @@ class ViewReservationsController extends Controller
             die('Could not connect '.mysqli_error());
         }
 
-        $sql = 'select date_time  from matches m , ticket e where ticket_id  = ' .$input.'  and  e.match_id = m.match_id ';
+        $sql = 'select date_time  from matches m , Ticket e where ticket_id  = ' .$input.'  and  e.match_id = m.match_id ';
         $result = mysqli_query($conn,$sql);
         $row  = mysqli_fetch_array($result);
         $date1 = $row['date_time'];
@@ -61,7 +62,7 @@ class ViewReservationsController extends Controller
         dump($check);
         if (!$check)
         {
-        $sql = 'Delete From  ticket  WHERE ticket_id  = ' .$input.';';
+        $sql = 'Delete From  Ticket  WHERE ticket_id  = ' .$input.';';
         mysqli_query($conn,$sql);
         return response()->json(array('ticket_id'=> $input), 200);
         }
