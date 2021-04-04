@@ -49,11 +49,11 @@ class ViewReservationsController extends Controller
         $row  = mysqli_fetch_array($result);
         $date1 = $row['date_time'];
        
-        $current = Carbon::now();
-        $date2 = $current->subDays(3);
         
         $date1 = Carbon::parse($date1);
-
+        $date1 = $date1->subDays(3);
+        $date2 = Carbon::now();
+      
         echo $date2 ;
         echo $date1 ;
         
