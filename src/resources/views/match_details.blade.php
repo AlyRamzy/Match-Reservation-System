@@ -4,6 +4,7 @@
 <script>
 
 setInterval(function() {
+     
         $.ajax({
             type: "GET",
             url: "/Reserved_Seats", 
@@ -64,7 +65,7 @@ setInterval(function() {
                    
                 }
         });
-    }, 1000);
+    }, 500);
     
 
 
@@ -112,6 +113,7 @@ function clickedfunc(row,column) {
 }
 
 function reserve(m_id) {
+     
      if (numberOfseats==0)
      {
           alert("please select seats first");
@@ -133,6 +135,7 @@ function reserve(m_id) {
 }
 
 </script>
+
 
 @section('side_bar')
     <?php
@@ -163,6 +166,7 @@ function reserve(m_id) {
 @section('content')
 
 <?php 
+     
      $home=$away=$stadium=$date=$referee=$lineman1=$lineman2="";
      $row  = mysqli_fetch_array($resultHomeTeam);
      $home=$row['team_name'];
@@ -269,6 +273,7 @@ function reserve(m_id) {
 
 ?>
 <script>
+
 if (<?php echo $someExist;?> ==1)
 {
      alert("Sorry but some seats reserved before your confirmation so check your reservation list");

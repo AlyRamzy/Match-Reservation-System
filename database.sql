@@ -65,3 +65,5 @@ CREATE TABLE Ticket
 );
 
 
+ALTER TABLE Ticket
+ADD CONSTRAINT Ticket_Cons UNIQUE (row,col,match_id); 

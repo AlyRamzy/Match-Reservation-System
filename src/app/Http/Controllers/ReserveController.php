@@ -53,25 +53,29 @@ class ReserveController extends Controller
             $r=request("row".$x);
             $c=request("col".$x);
             //reserve seat by seat
-            $sqlExist='select * from Ticket where row='.$r.' and col='.$c.' and match_id='.$match_id.' ;';
-            $resultExistance = mysqli_query($conn,$sqlExist);
-            $exist=0;
-            foreach($resultExistance as $res)
-            {
-                $exist=1;
-                $someExist=1;
-            }
-            if($exist!=1)
-            {
-                $sql = 'insert into Ticket (row,col,credit_card_id,user_name,match_id) values('.$r.','.$c.',"'.$creditcard.'","'.$_COOKIE['user'].'",'.$match_id.');';
+            //$sqlExist='select * from Ticket where row='.$r.' and col='.$c.' and match_id='.$match_id.' ;';
+            //$resultExistance = mysqli_query($conn,$sqlExist);
+            ///$exist=0;
+            //foreach($resultExistance as $res)
+            //{
+            //    $exist=1;
+            //    $someExist=1;
+            //}
+            //if($exist!=1)
+            //{
+            $sql = 'insert into Ticket (row,col,credit_card_id,user_name,match_id) values('.$r.','.$c.',"'.$creditcard.'","'.$_COOKIE['user'].'",'.$match_id.');';
             
-                $result = mysqli_query($conn,$sql);
+            $result = mysqli_query($conn,$sql);
+            //}
+            if($result<=0)
+            {
+                $someExist=1;
             }
 
           }  
         
         
-        return redirect('/Match_Details?match_id='.$match_id.'&some_exist='.$someExist);
+        return redirect('/Match_Details?match_id='.$match_id.'&some_exist='.$someExist.'&valid_error=0');
 
     }
 
