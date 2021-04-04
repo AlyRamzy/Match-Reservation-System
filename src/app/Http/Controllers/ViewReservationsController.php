@@ -59,7 +59,7 @@ class ViewReservationsController extends Controller
         
         $check = $date1->gte($date2);
         dump($check);
-        if (!$check)
+        if ($check)
         {
         $sql = 'Delete From  ticket  WHERE ticket_id  = ' .$input.';';
         mysqli_query($conn,$sql);
