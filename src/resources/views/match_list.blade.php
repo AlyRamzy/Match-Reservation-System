@@ -18,9 +18,9 @@
             echo '<br>';
             echo '<h4><a href="match_list">View All Matches</a></h4>';
             echo '<br>';
-            echo '<h4><a href="edit_profile">Edit Profile</a></h4>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
             echo '<br>';
-            echo '<h4><a href="user_reservations">My Reservations</a></h4>';
+            echo '<h4><a href="View_Reservations">My Reservations</a></h4>';
             echo '<br>';
         }
 
@@ -33,7 +33,7 @@
             echo '<br>';
             echo '<h4><a href="add_stadium">Add Stadium</a></h4>';
             echo '<br>';
-            echo '<h4><a href="edit_profile">Edit Profile</a></h4>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
             echo '<br>';
         }
         

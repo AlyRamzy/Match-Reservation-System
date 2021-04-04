@@ -27,22 +27,25 @@ function cancel_reservations(ticket_id )
 
 
 @section('side_bar')
-       <br>
-      <h2 style="background:black"><a href="Edit_Users" >Remove Users</a></h4>
-      <br>
-      <h2 ><a href="View_Reservations">Accept Fans</a></h4>
-      <br>
-      <h2 ><a href="Matches_List">Accept Managers</a></h4>
-      <br>
+<?php
+            echo '<br>';
+            echo '<h4><a href="match_list">View All Matches</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Profile">Edit Profile</a></h4>';
+            echo '<br>';
+            echo '<h4><a href="View_Reservations">My Reservations</a></h4>';
+            echo '<br>';
+?>
       
 @endsection
 
 @section('content')
 
-      <h1>Welcome Site Admin, Here is the users of the system remove whoever you want.</h1>
-      <br><br>
+     
       <?php
-
+        echo'<h1>Welcome, '.$_COOKIE['user'].' !</h1>';
+        echo '<br>';
+        echo'<br>';
         if (empty($result)) 
         {
             echo '<h1 " >No Reservations To Be Viewed.</h1><br>';

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 //-----------------------------------BASIC ROUTES------------------------------------------------------------------------------//
 Route::get('/', function () {
-    return redirect('/match_list');
+    return redirect('/View_Profile');
 });
 
 Route::get('/login', function () {
@@ -55,7 +55,16 @@ Route::post('/submit_match','EditMatchController@Submit');
 Route::post('/submit_stadium','AddStadiumController@Submit');
 
 
+Route::post('/Edit_Profile','ProfileController@Edit_Profile');
+Route::post('/Edit_Password','ProfileController@Edit_Password');
+
 //-----------------------------------ROUTES FOR VIEWS THAT NEED DATA TO START--------------------------------------------------//
+Route::get('/Accept_Fans','AdminController@AcceptFans');
+Route::get('/View_Reservations','ViewReservationsController@ViewReservations');
+Route::get('/Accept_Mangers','AdminController@AcceptManagers');
+Route::get('/Remove_Users','AdminController@RemoveUsersSite');
+Route::get('/Match_Details','MatchDetailsController@GetMatchDetails');
+Route::get('/View_Profile','ProfileController@ViewProfile');
 Route::get('/Reserve','ReserveController@Reserve');
 Route::get('/Accept_Fans', 'AdminController@AcceptFans');
 Route::get('/Accept_Mangers', 'AdminController@AcceptManagers');
@@ -70,6 +79,7 @@ Route::get('/add_match', 'EditMatchController@GetMatchDetails');
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------//
 Route::get('/Approve_User','AdminController@ApproveUser');
 Route::get('/Remove_One_User','AdminController@RemoveUser');
+Route::get('/Cancel_Reservations','ViewReservationsController@CancelReservations');
 
 
 
