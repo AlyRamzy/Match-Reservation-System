@@ -24,7 +24,7 @@ function cancel_reservations(ticket_id )
 
                       }
                       else if(data.status ==401){
-                        alert("You Can only delete within 3 days before the match starts .");
+                        alert("You can't remove your ticket as the match starts in less than 3 days.");
 
                       }
                       

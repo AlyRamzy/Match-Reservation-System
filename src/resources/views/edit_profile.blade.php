@@ -67,30 +67,30 @@
               
                 $row  = mysqli_fetch_array($result);
                 
-                echo'<input type="text" name="username" value='.$row['user_name'].' class="input-xlarge" readonly>';
+                echo'<input type="text" name="username" value="'.$row['user_name'].'" class="input-xlarge" readonly>';
                 
                 echo '<br>';
                 echo'<label>First Name</label>';
                 echo '<br>';
-                echo'<input type="text" name="firstname" value='.$row['first_name'].' class="input-xlarge" required>';
+                echo'<input type="text" name="firstname" value="'.$row['first_name'].'" class="input-xlarge" required>';
                 echo '<br>';
                 echo'<label>Last Name</label>';
                 echo '<br>';
                 
-                echo'<input type="text" name="lastname" value='.$row['last_name'].' class="input-xlarge" required>';
+                echo'<input type="text" name="lastname" value="'.$row['last_name'].'" class="input-xlarge" required>';
               
                 echo '<br>';
                 echo'<label>Birth Date</label>';
                 echo '<br>';
                 
-                echo'<input type="date" name="birthdate" value='.$row['Bdate'].' id="inputlg"class="textcolor" required>'  ; 
+                echo'<input type="date" name="birthdate" value="'.$row['Bdate'].'" id="inputlg"class="textcolor" required>'  ; 
             
                 echo '<br>';
     
                 echo'<label>Email</label>';
                 echo '<br>';
                 
-                echo'<input type="text" name="email" value='.$row['email'].'  class="input-xlarge" readonly>';
+                echo'<input type="text" name="email" value="'.$row['email'].'"  class="input-xlarge" readonly>';
                 
                 echo '<br>';
     
@@ -98,7 +98,7 @@
                 echo '<br>';
                 
                 if ($row['address'] != null ) 
-                echo '<input type="text" name="address" value='.$row['address'].'  class="input-xlarge" >';
+                echo '<input type="text" name="address" value="'.$row['address'].'"  class="input-xlarge" >';
                 else
                 echo '<input type="text" name="address" class="input-xlarge">';
                 
